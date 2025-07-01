@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F.Y.C.S C Division - Bunk Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    label, input {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff6b81;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ff4757;
+    }
+    .result {
+      margin-top: 20px;
+    }
+    .subject {
+      margin-bottom: 25px;
+    }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9em;
+      color: var(--footer-color);
+    }
+    .theme-toggle {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .theme-toggle button {
+      background: #1e90ff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎓 F.Y.C.S C Division – Bunk Calculator</h1>
+  <div class="theme-toggle">
+    <button onclick="toggleTheme()">🌗 Toggle Dark/Light Mode</button>
+  </div>
+  <div class="container">
+    <div id="form"></div>
+    <button onclick="calculate()">Calculate Attendance</button>
+    <div class="result" id="result"></div>
+    <div class="footer">
+      Made with ❤️ by Vedant Jorkar for F.Y.C.S C Division (Pillai College)
+    </div>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+
+    function setDarkMode() {
+      root.style.setProperty('--bg-color', '#2f3542');
+      root.style.setProperty('--text-color', 'white');
+      root.style.setProperty('--card-bg', '#1e272e');
+      root.style.setProperty('--footer-color', '#ced6e0');
+    }
+
+    function setLightMode() {
+      root.style.setProperty('--bg-color', '#f1f2f6');
+      root.style.setProperty('--text-color', '#2f3542');
+      root.style.setProperty('--card-bg', '#ffffff');
+      root.style.setProperty('--footer-color', '#57606f');
+    }
+
+    let darkMode = true;
+    setDarkMode();
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      if (darkMode) setDarkMode();
+      else setLightMode();
+    }
+
+    const subjects = [
+      { name: "Indian Knowledge System (IKS)", total: 7 },
+      { name: "AEC", total: 8 },
+      { name: "Problem Solving", total: 1 },
+      { name: "IDC", total: 0 },
+      { name: "Python", total: 11 },
+      { name: "DBMS", total: 11 },
+      { name: "Mathematical and Stats", total: 11 }
+    ];
+
+    const formDiv = document.getElementById("form");
+    subjects.forEach((subject, index) => {
+      formDiv.innerHTML += `
+        <div class="subject">
+          <label><strong>${subject.name}</strong> — ${subject.total} Lectures</label>
+          <input type="number" id="attended${index}" placeholder="Enter attended lectures" min="0" max="${subject.total}" />
+        </div>
+      `;
+    });
+
+    function calculate() {
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "";
+
+      subjects.forEach((subject, index) => {
+        const total = subject.total;
+        const attended = parseInt(document.getElementById(`attended${index}`).value);
+
+        if (!isNaN(attended) && total > 0) {
+          const percentage = ((attended / total) * 100).toFixed(2);
+          const maxBunks = Math.floor(total - total * 0.75);
+          const bunksLeft = Math.max(maxBunks - (total - attended), 0);
+
+          resultDiv.innerHTML += `
+            <div>
+              <strong>${subject.name}:</strong><br>
+              📈 Attendance: ${percentage}%<br>
+              😎 You can bunk <strong>${bunksLeft}</strong> more lecture(s) safely.<br><br>
+            </div>
+          `;
+        } else {
+          resultDiv.innerHTML += `<div><strong>${subject.name}:</strong> ⚠️ Please enter a valid number of attended lectures.<br><br></div>`;
+        }
+      });
+    }
+  </script>
+</body>
+</html>
