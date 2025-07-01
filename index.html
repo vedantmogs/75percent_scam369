@@ -74,6 +74,19 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .rainbow-text {
+      font-weight: bold;
+      background-image: linear-gradient(270deg, #ff0000, #ffa500, #ffff00, #008000, #0000ff, #4b0082, #ee82ee);
+      background-size: 1400% 1400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 6s ease infinite;
+    }
+    @keyframes rainbow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
   </style>
 </head>
 <body>
@@ -130,7 +143,8 @@
     subjects.forEach((subject, index) => {
       formDiv.innerHTML += `
         <div class="subject">
-          <label><strong>${subject.name}</strong> — ${subject.total} Lectures</label>
+          <label class="rainbow-text">${subject.name}</label>
+          <small>${subject.total} Lectures</small>
           <input type="number" id="attended${index}" placeholder="Enter attended lectures" min="0" max="${subject.total}" />
         </div>
       `;
@@ -151,13 +165,13 @@
 
           resultDiv.innerHTML += `
             <div>
-              <strong>${subject.name}:</strong><br>
+              <strong class="rainbow-text">${subject.name}:</strong><br>
               📈 Attendance: ${percentage}%<br>
               😎 You can bunk <strong>${bunksLeft}</strong> more lecture(s) safely.<br><br>
             </div>
           `;
         } else {
-          resultDiv.innerHTML += `<div><strong>${subject.name}:</strong> ⚠️ Please enter a valid number of attended lectures.<br><br></div>`;
+          resultDiv.innerHTML += `<div><strong class="rainbow-text">${subject.name}:</strong> ⚠️ Please enter a valid number of attended lectures.<br><br></div>`;
         }
       });
     }
