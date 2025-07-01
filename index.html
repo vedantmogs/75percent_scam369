@@ -87,6 +87,13 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    .rainbow-text:nth-child(1) { animation-delay: 0s; }
+    .rainbow-text:nth-child(2) { animation-delay: 0.3s; }
+    .rainbow-text:nth-child(3) { animation-delay: 0.6s; }
+    .rainbow-text:nth-child(4) { animation-delay: 0.9s; }
+    .rainbow-text:nth-child(5) { animation-delay: 1.2s; }
+    .rainbow-text:nth-child(6) { animation-delay: 1.5s; }
+    .rainbow-text:nth-child(7) { animation-delay: 1.8s; }
   </style>
 </head>
 <body>
@@ -143,7 +150,7 @@
     subjects.forEach((subject, index) => {
       formDiv.innerHTML += `
         <div class="subject">
-          <label class="rainbow-text">${subject.name}</label>
+          <label class="rainbow-text" style="animation-delay: ${index * 0.3}s">${subject.name}</label>
           <small>${subject.total} Lectures</small>
           <input type="number" id="attended${index}" placeholder="Enter attended lectures" min="0" max="${subject.total}" />
         </div>
@@ -165,13 +172,13 @@
 
           resultDiv.innerHTML += `
             <div>
-              <strong class="rainbow-text">${subject.name}:</strong><br>
+              <strong class="rainbow-text" style="animation-delay: ${index * 0.3}s">${subject.name}:</strong><br>
               📈 Attendance: ${percentage}%<br>
               😎 You can bunk <strong>${bunksLeft}</strong> more lecture(s) safely.<br><br>
             </div>
           `;
         } else {
-          resultDiv.innerHTML += `<div><strong class="rainbow-text">${subject.name}:</strong> ⚠️ Please enter a valid number of attended lectures.<br><br></div>`;
+          resultDiv.innerHTML += `<div><strong class="rainbow-text" style="animation-delay: ${index * 0.3}s">${subject.name}:</strong> ⚠️ Please enter a valid number of attended lectures.<br><br></div>`;
         }
       });
     }
