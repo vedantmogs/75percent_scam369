@@ -1,161 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>F.Y.C.S C Division – Bunk Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F.Y.C.S C Division - Bunk Calculator</title>
   <style>
-    :root {
-      --bg-color: #2f3542;
-      --text-color: white;
-      --card-bg: #1e272e;
-      --footer-color: #ced6e0;
-      --input-bg: #ffffff;
-      --input-wrapper-bg: #2f3542;
-    }
-
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-color);
       color: var(--text-color);
-      transition: all 0.3s ease-in-out;
+      margin: 0;
+      padding: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
-
     h1 {
       text-align: center;
-      padding: 20px 10px 10px;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-      background-color: var(--card-bg);
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .input-wrapper {
-      background-color: var(--input-wrapper-bg);
-      padding: 10px;
-      border-radius: 10px;
       margin-bottom: 20px;
     }
-
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    label, input {
+      display: block;
+      margin-bottom: 10px;
+    }
     input[type="number"] {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: var(--input-bg);
-      color: var(--text-color);
-      font-size: 16px;
-    }
-
-    .subject-label {
-      font-weight: bold;
-      font-size: 18px;
-      margin-top: 20px;
-      animation: rainbow 6s infinite linear;
-    }
-
-    @keyframes rainbow {
-      0%{ color: red; }
-      14%{ color: orange; }
-      28%{ color: yellow; }
-      42%{ color: green; }
-      57%{ color: blue; }
-      71%{ color: indigo; }
-      85%{ color: violet; }
-      100%{ color: red; }
-    }
-
-    .btn {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 16px;
       border: none;
       border-radius: 8px;
-      background-color: #1e90ff;
-      color: white;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background-color: #0074e4;
-    }
-
-    .results {
-      margin-top: 20px;
-      padding: 10px;
+      margin-bottom: 20px;
       background-color: var(--input-bg);
-      border-radius: 10px;
       color: var(--text-color);
     }
-
-    .toggle-mode {
-      display: block;
-      margin: 0 auto 20px;
-      padding: 10px 15px;
-      background-color: #0077ff;
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff6b81;
       color: white;
-      border-radius: 20px;
-      cursor: pointer;
       font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ff4757;
+    }
+    .result {
+      margin-top: 20px;
+    }
+    .subject {
+      margin-bottom: 25px;
+    }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9em;
+      color: var(--footer-color);
+    }
+    .theme-toggle {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .theme-toggle button {
+      background: #1e90ff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .rainbow-text {
+      font-weight: bold;
+      background-image: linear-gradient(270deg, #ff0000, #ffa500, #ffff00, #008000, #0000ff, #4b0082, #ee82ee);
+      background-size: 1400% 1400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 6s ease infinite;
+    }
+    @keyframes rainbow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
   </style>
 </head>
 <body>
   <h1>🎓 F.Y.C.S C Division – Bunk Calculator</h1>
-  <button class="toggle-mode" onclick="toggleMode()">🌗 Toggle Dark/Light Mode</button>
-  <div class="container" id="form-container">
-    <div>
-      <div class="subject-label">Indian Knowledge System (IKS)</div>
-      <small>7 Lectures</small>
-      <div class="input-wrapper"><input type="number" id="iks" placeholder="Enter attended lectures"></div>
-
-      <div class="subject-label">AEC</div>
-      <small>8 Lectures</small>
-      <div class="input-wrapper"><input type="number" id="aec" placeholder="Enter attended lectures"></div>
-
-      <div class="subject-label">Problem Solving</div>
-      <small>1 Lecture</small>
-      <div class="input-wrapper"><input type="number" id="ps" placeholder="Enter attended lectures"></div>
-
-      <div class="subject-label">IDC</div>
-      <small>0 Lectures</small>
-      <div class="input-wrapper"><input type="number" id="idc" placeholder="Enter attended lectures"></div>
-
-      <div class="subject-label">Python</div>
-      <small>11 Lectures</small>
-      <div class="input-wrapper"><input type="number" id="python" placeholder="Enter attended lectures"></div>
-
-      <div class="subject-label">DBMS</div>
-      <small>11 Lectures</small>
-      <div class="input-wrapper"><input type="number" id="dbms" placeholder="Enter attended lectures"></div>
-
-      <div class="subject-label">Mathematical and Stats</div>
-      <small>11 Lectures</small>
-      <div class="input-wrapper"><input type="number" id="maths" placeholder="Enter attended lectures"></div>
-    </div>
-
-    <button class="btn" onclick="calculate()">🧮 Calculate Bunks</button>
-    <div id="results" class="results"></div>
+  <div class="theme-toggle">
+    <button onclick="toggleTheme()">🌗 Toggle Dark/Light Mode</button>
   </div>
-
-  <script>
+  <div class="container">
+    <div id="form"></div>
+    <button onclick="calculate()">Calculate Attendance</button>
+    <div class="result" id="result"></div>
+    <div class="footer">
+      Made with ❤️ by Vedant Jorkar for F.Y.C.S C Division (Pillai College)
+    </div>
+  </div>  <script>
     const root = document.documentElement;
-
-    function toggleMode() {
-      const isDark = root.style.getPropertyValue('--bg-color') === '#2f3542';
-      if (isDark) {
-        setLightMode();
-      } else {
-        setDarkMode();
-      }
-    }
 
     function setDarkMode() {
       root.style.setProperty('--bg-color', '#2f3542');
@@ -163,7 +111,6 @@
       root.style.setProperty('--card-bg', '#1e272e');
       root.style.setProperty('--footer-color', '#ced6e0');
       root.style.setProperty('--input-bg', '#ffffff');
-      root.style.setProperty('--input-wrapper-bg', '#2f3542');
     }
 
     function setLightMode() {
@@ -171,46 +118,63 @@
       root.style.setProperty('--text-color', '#2f3542');
       root.style.setProperty('--card-bg', '#dcdde1');
       root.style.setProperty('--footer-color', '#57606f');
-      root.style.setProperty('--input-bg', '#ffffff');
-      root.style.setProperty('--input-wrapper-bg', '#dcdde1');
+      root.style.setProperty('--input-bg', '#e0e0e0');
     }
+
+    let darkMode = true;
+    setDarkMode();
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      if (darkMode) setDarkMode();
+      else setLightMode();
+    }
+
+    const subjects = [
+      { name: "Indian Knowledge System (IKS)", total: 7 },
+      { name: "AEC", total: 8 },
+      { name: "Problem Solving", total: 1 },
+      { name: "IDC", total: 0 },
+      { name: "Python", total: 11 },
+      { name: "DBMS", total: 11 },
+      { name: "Mathematical and Stats", total: 11 }
+    ];
+
+    const formDiv = document.getElementById("form");
+    subjects.forEach((subject, index) => {
+      formDiv.innerHTML += `
+        <div class="subject">
+          <label class="rainbow-text" style="animation-delay: ${index * 0.3}s">${subject.name}</label>
+          <small>${subject.total} Lectures</small>
+          <input type="number" id="attended${index}" placeholder="Enter attended lectures" min="0" max="${subject.total}" />
+        </div>
+      `;
+    });
 
     function calculate() {
-      const subjects = {
-        'Indian Knowledge System (IKS)': { id: 'iks', total: 7 },
-        'AEC': { id: 'aec', total: 8 },
-        'Problem Solving': { id: 'ps', total: 1 },
-        'IDC': { id: 'idc', total: 0 },
-        'Python': { id: 'python', total: 11 },
-        'DBMS': { id: 'dbms', total: 11 },
-        'Mathematical and Stats': { id: 'maths', total: 11 },
-      };
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "";
 
-      let output = '';
-      for (let subject in subjects) {
-        const input = document.getElementById(subjects[subject].id).value;
-        const attended = parseInt(input);
-        const total = subjects[subject].total;
+      subjects.forEach((subject, index) => {
+        const total = subject.total;
+        const attended = parseInt(document.getElementById(`attended${index}`).value);
 
-        if (isNaN(attended) || attended < 0 || attended > total) {
-          output += `<p><strong>${subject}:</strong> ⚠️ Please enter a valid number of attended lectures.</p>`;
-          continue;
+        if (!isNaN(attended) && total > 0) {
+          const percentage = ((attended / total) * 100).toFixed(2);
+          const maxBunks = Math.floor(total - total * 0.75);
+          const bunksLeft = Math.max(maxBunks - (total - attended), 0);
+
+          resultDiv.innerHTML += `
+            <div>
+              <strong class="rainbow-text" style="animation-delay: ${index * 0.3}s">${subject.name}:</strong><br>
+              📈 Attendance: ${percentage}%<br>
+              😎 You can bunk <strong>${bunksLeft}</strong> more lecture(s) safely.<br><br>
+            </div>
+          `;
+        } else {
+          resultDiv.innerHTML += `<div><strong class="rainbow-text" style="animation-delay: ${index * 0.3}s">${subject.name}:</strong> ⚠️ Please enter a valid number of attended lectures.<br><br></div>`;
         }
-
-        const percentage = (attended / total) * 100;
-        const minAttended = Math.ceil(0.75 * total);
-        const safeBunks = attended - minAttended;
-
-        output += `<p><strong>${subject}:</strong><br>
-          📈 Attendance: ${percentage.toFixed(2)}%<br>
-          😎 You can bunk <strong>${safeBunks > 0 ? safeBunks : 0}</strong> more lecture(s) safely.</p>`;
-      }
-
-      document.getElementById('results').innerHTML = output;
+      });
     }
-
-    // Start in dark mode
-    setDarkMode();
-  </script>
-</body>
+  </script></body>
 </html>
