@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,6 +34,8 @@
       border: none;
       border-radius: 8px;
       margin-bottom: 20px;
+      background-color: var(--input-bg);
+      color: var(--text-color);
     }
     button {
       width: 100%;
@@ -87,13 +88,6 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .rainbow-text:nth-child(1) { animation-delay: 0s; }
-    .rainbow-text:nth-child(2) { animation-delay: 0.3s; }
-    .rainbow-text:nth-child(3) { animation-delay: 0.6s; }
-    .rainbow-text:nth-child(4) { animation-delay: 0.9s; }
-    .rainbow-text:nth-child(5) { animation-delay: 1.2s; }
-    .rainbow-text:nth-child(6) { animation-delay: 1.5s; }
-    .rainbow-text:nth-child(7) { animation-delay: 1.8s; }
   </style>
 </head>
 <body>
@@ -108,9 +102,7 @@
     <div class="footer">
       Made with ❤️ by Vedant Jorkar for F.Y.C.S C Division (Pillai College)
     </div>
-  </div>
-
-  <script>
+  </div>  <script>
     const root = document.documentElement;
 
     function setDarkMode() {
@@ -118,13 +110,15 @@
       root.style.setProperty('--text-color', 'white');
       root.style.setProperty('--card-bg', '#1e272e');
       root.style.setProperty('--footer-color', '#ced6e0');
+      root.style.setProperty('--input-bg', '#ffffff');
     }
 
     function setLightMode() {
       root.style.setProperty('--bg-color', '#f1f2f6');
       root.style.setProperty('--text-color', '#2f3542');
-      root.style.setProperty('--card-bg', '#ffffff');
+      root.style.setProperty('--card-bg', '#dcdde1');
       root.style.setProperty('--footer-color', '#57606f');
+      root.style.setProperty('--input-bg', '#e0e0e0');
     }
 
     let darkMode = true;
@@ -182,6 +176,5 @@
         }
       });
     }
-  </script>
-</body>
+  </script></body>
 </html>
